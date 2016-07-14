@@ -41,8 +41,10 @@ def make_chains(text_string):
 
 
 def make_text(chains):
-    """Takes dictionary of markov chains; returns random text."""
+    """Takes dictionary of markov chains; returns random text.
 
+    Will not produce text with more than 140 characters."""
+    tweet = ""
     key = choice(chains.keys())
     words = [key[0], key[1]]
     while key in chains:
@@ -56,9 +58,12 @@ def make_text(chains):
         words.append(word)
         key = (key[1], word)
 
-    return " ".join(words)
-
-
+        count_words = " ".join(words) #return 140 characters of this join string
+    while len(tweet) <= 140 == True:
+        for char in count_words:
+            tweet += char 
+    print "Is this text 140 chars?", tweet
+    return count_words
 def tweet(chains):
     # Use Python os.environ to get at environmental variables
     # Note: you must run `source secrets.sh` before running this file
@@ -74,6 +79,6 @@ text = open_and_read_file(filenames)
 
 # Get a Markov chain
 chains = make_chains(text)
-
+print make_text(chains)
 # Your task is to write a new function tweet, that will take chains as input
 # tweet(chains)
